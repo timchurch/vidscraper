@@ -2,3 +2,5 @@
 *~
 /.coverage
 /vidscraper.egg-info
+.project
+.pydevproject
