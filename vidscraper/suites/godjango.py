@@ -1,4 +1,5 @@
 from datetime import datetime
+import dateutil
 from pprint import pprint
 from bs4 import BeautifulSoup, SoupStrainer
 from vidscraper.suites import BaseSuite, registry, SuiteMethod
@@ -53,9 +54,7 @@ class GoDjangoScrapeMethod(SuiteMethod):
                     separator = " | "
                     separator_index = tag.string.find(separator)
                     date_string = tag.string[:separator_index].strip()
-                    date_string = date_string.replace(" a.m.", "AM")
-                    date_string = date_string.replace(" p.m.", "PM")
-                    data['publish_datetime'] = datetime.strptime(date_string, "%B %d, %Y, %I:%M%p")
+                    data['publish_datetime'] = dateutil.parser.parse(date_string)
 
                     duration_string = tag.string[separator_index+len(separator):]
                     end_duration_index = duration_string.find(" minutes")
