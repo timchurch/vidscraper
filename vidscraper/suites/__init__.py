@@ -28,4 +28,4 @@ from vidscraper.suites.base import (registry, BaseSuite, SuiteMethod,
                                     OEmbedMethod)
 
 # Force loading of these files so that the default suites get registered.
-from vidscraper.suites import blip, fora, google, ustream, vimeo, youtube, feed, parleys, showmedo
+from vidscraper.suites import blip, fora, google, ustream, vimeo, youtube, feed, parleys, showmedo, godjango
