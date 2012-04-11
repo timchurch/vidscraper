@@ -88,7 +88,7 @@ class ShowMeDoSuite(BaseSuite):
     Suite for ShowMeDo.com
     
     """
-    video_regex = r'^https?://(www\.)?showmedo.com/videotutorials/video\?name=(?P<video_id>\d+)(&fromSeriesID=(?P<series_id>\d+))?$'
+    video_regex = r'^https?://(www\.)?showmedo.com/videotutorials/video\?name=(?P<video_id>[0-9a-zA-Z\-]+)(&fromSeriesID=(?P<series_id>\d+))?$'
     # Example URLs:
     #    http://showmedo.com/videotutorials/video?name=1100000
     #    http://showmedo.com/videotutorials/video?name=1100000&fromSeriesID=110
