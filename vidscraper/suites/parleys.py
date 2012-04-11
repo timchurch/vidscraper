@@ -27,7 +27,7 @@ class ParleysApiMethod(SuiteMethod):
             'tags': [tag['name'] for tag in parsed['keywords']],
             'flash_enclosure_url': ParleysSuite.flash_enclosure_url_from_id(video_id),
             'embed_code': ParleysSuite.embed_code_from_id(video_id),
-            'guid': 'parleys,%i' % (parsed['id'])
+            'guid': 'parleys:%i' % (parsed['id'])
 #            'duration': parsed['duration'],
 #            'speakers': [speaker['fullname'] for speaker in parsed['speakers']]
         }
