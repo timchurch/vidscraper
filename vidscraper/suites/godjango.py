@@ -70,6 +70,11 @@ class GoDjangoScrapeMethod(SuiteMethod):
                         file_urls_mimetypes.append("video/%s" % download_tag.string)
                     data['file_url'] = file_urls
                     data['file_url_mimetype'] = file_urls_mimetypes
+        
+        # Statically add one tag (theme of the site)
+        tags = ['django', ]
+        data['tags'] = tags
+        
 #        pprint(data)
         return data
 
