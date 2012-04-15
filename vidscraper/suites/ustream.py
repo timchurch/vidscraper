@@ -32,7 +32,7 @@ from vidscraper.suites import BaseSuite, registry, SuiteMethod, OEmbedMethod
 class UstreamApiMethod(SuiteMethod):
     fields = set(['link', 'title', 'description', 'flash_enclosure_url',
                   'embed_code', 'thumbnail_url', 'publish_date', 'tags',
-                  'user', 'user_url'])
+                  'user', 'user_url', 'view_count', 'duration_seconds'])
 
     def get_url(self, video):
         video_id = video.suite.video_regex.match(video.url).group('id')
@@ -56,7 +56,9 @@ class UstreamApiMethod(SuiteMethod):
             'publish_date': publish_date,
             'tags': [unicode(tag) for tag in parsed['tags']],
             'user': parsed['user']['userName'],
-            'user_url': parsed['user']['url']
+            'user_url': parsed['user']['url'],
+            'view_count': parsed['views'],  # Warning: UNTESTED!
+            'duration_seconds': parsed['length']  # Warning: UNTESTED!
         }
         return data
 
