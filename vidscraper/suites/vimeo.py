@@ -31,6 +31,7 @@ import urllib
 import urllib2
 import urlparse
 from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 
 try:
     import oauth2
@@ -71,7 +72,10 @@ class VimeoScrapeMethod(SuiteMethod):
         return u"http://www.vimeo.com/moogaloop/load/clip:%s" % video_id
 
     def process(self, response):
-        doc = minidom.parseString(response.text)
+        try:
+            doc = minidom.parseString(response.text)
+        except ExpatError:
+            return {}
         error_id = doc.getElementsByTagName('error_id').item(0)
         if (error_id is not None and
             error_id.firstChild.data == 'embed_blocked'):
@@ -183,16 +187,19 @@ allowFullScreen></iframe>""" % api_video['id']
             groups = match.groupdict()
         else:
             groups = self.feed_regex.match(feed_url).groupdict()
+
         if groups['collection'] is not None:
             path = "/".join((groups['collection'], groups['name']))
         else:
             path = groups['name']
+
         if type_override:
             type_ = type_override
         elif groups['type']:
             type_ = groups['type']
         else:
             type_ = 'videos'
+
         return self._get_user_api_url(path, type_)
 
     def get_feed_response(self, feed, feed_url):
