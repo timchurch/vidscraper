@@ -117,7 +117,7 @@ class BlipSuite(BaseSuite):
         return False
 
     def get_feed_url(self, url):
-        if not url.endswith('/rss'):
+        if not '/rss' in url:
             if url.endswith('/'):
                 return url + 'rss'
             else:
