@@ -57,8 +57,8 @@ class UstreamApiMethod(SuiteMethod):
             'tags': [unicode(tag) for tag in parsed['tags']],
             'user': parsed['user']['userName'],
             'user_url': parsed['user']['url'],
-            'view_count': parsed['views'],  # Warning: UNTESTED!
-            'duration_seconds': parsed['length']  # Warning: UNTESTED!
+            'view_count': parsed['numberOf']['views'],
+            'duration_seconds': int(parsed['lengthInSecond'])
         }
         return data
 
