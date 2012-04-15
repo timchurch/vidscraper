@@ -72,7 +72,8 @@ class YouTubeApiMethod(SuiteMethod):
             soup = BeautifulSoup(description['$t']).findAll('span')[0]
             description = unicode(soup.string)
         else:
-            description = description['$t']
+            # replace newlines with HTML line breaks
+            description = description['$t'].replace('\r\n', '<br>')
 
         thumbnail_url = None
         for thumbnail in media_group['media$thumbnail']:
