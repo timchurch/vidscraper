@@ -164,7 +164,7 @@ class OEmbedMethod(SuiteMethod):
         self.endpoint = endpoint
 
     def get_url(self, video):
-        return u"%s?url=%s" % (self.endpoint, urllib.quote_plus(video.url))
+        return u"%s?url=%s&maxwidth=%d" % (self.endpoint, urllib.quote_plus(video.url), 680)
 
     def process(self, response):
         parsed = json.loads(response.text)

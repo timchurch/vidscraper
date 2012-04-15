@@ -141,7 +141,7 @@ class VimeoSuite(BaseSuite):
     @classmethod
     def api_video_embed_code(cls, api_video):
         return u"""<iframe src="http://player.vimeo.com/video/%s" \
-width="320" height="240" frameborder="0" webkitAllowFullScreen \
+width="640" height="480" frameborder="0" webkitAllowFullScreen \
 allowFullScreen></iframe>""" % api_video['id']
 
     @classmethod

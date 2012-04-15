@@ -51,7 +51,7 @@ class UstreamApiMethod(SuiteMethod):
             'title': parsed['title'],
             'description': parsed['description'],
             'flash_enclosure_url': url,
-            'embed_code': "<iframe src='%s' width='320' height='260' />" % url,
+            'embed_code': "<iframe src='%s' width='640' height='520' />" % url,
             'thumbnail_url': parsed['imageUrl']['medium'],
             'publish_date': publish_date,
             'tags': [unicode(tag) for tag in parsed['tags']],
