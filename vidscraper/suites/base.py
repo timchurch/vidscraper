@@ -164,7 +164,7 @@ class OEmbedMethod(SuiteMethod):
         self.endpoint = endpoint
 
     def get_url(self, video):
-        return u"%s?url=%s&maxwidth=%d" % (self.endpoint, urllib.quote_plus(video.url), 680)
+        return u"%s?url=%s&maxwidth=%d" % (self.endpoint, urllib.quote_plus(video.url), 640)
 
     def process(self, response):
         parsed = json.loads(response.text)
@@ -322,6 +322,7 @@ class BaseSuite(object):
         possible responses will be fetched.
 
         """
+        print "VIDEO: %s" % video.link
         missing_fields = set(video.missing_fields)
         if not missing_fields:
             return
