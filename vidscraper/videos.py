@@ -236,6 +236,7 @@ class BaseVideoIterator(object):
                                      fields=self.fields,
                                      api_keys=self.api_keys)
         video._apply(data)
+        video.load()  # Fill in missing data from alternate methods
         return video
 
     def __iter__(self):
