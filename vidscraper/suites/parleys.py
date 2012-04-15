@@ -5,7 +5,8 @@ from vidscraper.suites import BaseSuite, registry, SuiteMethod
 class ParleysApiMethod(SuiteMethod):
     fields = set(['link', 'title', 'description', 'guid',
                   'thumbnail_url', 'tags', 'embed_code',
-                  'flash_enclosure_url'])
+                  'flash_enclosure_url', 'duration_seconds',
+                  'view_count'])
     
     def get_url(self, video):
         presentation_id = video.suite.video_regex.match(video.url).group('video_id')
@@ -27,8 +28,9 @@ class ParleysApiMethod(SuiteMethod):
             'tags': [tag['name'] for tag in parsed['keywords']],
             'flash_enclosure_url': ParleysSuite.flash_enclosure_url_from_id(video_id),
             'embed_code': ParleysSuite.embed_code_from_id(video_id),
-            'guid': 'parleys:%i' % (parsed['id'])
-#            'duration': parsed['duration'],
+            'guid': 'parleys:%i' % (parsed['id']),
+            'duration_seconds': int(parsed['duration']),
+            'view_count': parsed['totalViews']
 #            'speakers': [speaker['fullname'] for speaker in parsed['speakers']]
         }
         return data

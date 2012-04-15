@@ -322,7 +322,6 @@ class BaseSuite(object):
         possible responses will be fetched.
 
         """
-        print "VIDEO: %s" % video.link
         missing_fields = set(video.missing_fields)
         if not missing_fields:
             return

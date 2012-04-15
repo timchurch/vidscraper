@@ -51,7 +51,7 @@ class Video(object):
         'file_url_mimetype', 'file_url_length', 'file_url_expires',
         'flash_enclosure_url', 'is_embeddable', 'embed_code',
         'thumbnail_url', 'user', 'user_url', 'tags', 'link', 'guid',
-        'index', 'license'
+        'index', 'license', 'view_count', 'duration_seconds'
     )
     #: The canonical link to the video. This may not be the same as the url
     #: used to initialize the video.
@@ -93,6 +93,10 @@ class Video(object):
     #: A URL to a description of the license the Video is under (often Creative
     #: Commons)
     license = None
+    #: Number of times the video has been viewed
+    view_count = None
+    #: The duration of the video in seconds.
+    duration_seconds = None
 
     # These were pretty suite-specific and should perhaps be treated as such?
     #: Whether the video is embeddable? (Youtube, Vimeo)

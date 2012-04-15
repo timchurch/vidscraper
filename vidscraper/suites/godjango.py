@@ -20,8 +20,8 @@ class GoDjangoScrapeMethod(SuiteMethod):
     fields = set(['link', 'title', 'description', 'guid',
                   'thumbnail_url', 'publish_datetime',
                   'file_url', 'file_url_mimetype',
-                  'duration'])
-    
+                  'duration_seconds'])
+
     def get_url(self, video):
         return video.url
 
@@ -60,7 +60,7 @@ class GoDjangoScrapeMethod(SuiteMethod):
                     end_duration_index = duration_string.find(" minutes")
                     duration_minutes = int(duration_string[:end_duration_index])
                     duration_seconds = duration_minutes * 60;
-                    data['duration'] = duration_seconds
+                    data['duration_seconds'] = duration_seconds
                 elif tag.has_key('class') and "video-content-download" in tag['class']:
                     download_tags = tag.find_all('a')
                     file_urls = []
@@ -91,6 +91,18 @@ class GoDjangoSuite(BaseSuite):
     feed_regex = r'^http://feeds.feedburner.com/GoDjango$'
     # Example URLs:
     #    http://feeds.feedburner.com/GoDjango
+
+    def parse_feed_entry(self, entry):
+        """
+        Reusable method to parse a feedparser entry from the GoDjango rss feed.
+        Returns a dictionary mapping :class:`.Video` fields to values.
+        """
+        data = {
+            'link': entry['feedburner_origlink'],
+            'title': entry['title'],
+            'publish_datetime': entry.published_parsed,
+        }
+        return data
 
     methods = (GoDjangoScrapeMethod(), )
 

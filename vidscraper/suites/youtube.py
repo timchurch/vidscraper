@@ -47,7 +47,7 @@ from vidscraper.utils.feedparser import struct_time_to_datetime
 class YouTubeApiMethod(SuiteMethod):
     fields = set(('link', 'title', 'description', 'guid', 'thumbnail_url',
                   'publish_datetime', 'tags', 'flash_enclosure_url', 'user',
-                  'user_url', 'license'))
+                  'user_url', 'license', 'view_count', 'duration_seconds'))
 
     def get_url(self, video):
         video_id = video.suite.video_regex.match(video.url).group('video_id')
@@ -101,14 +101,17 @@ class YouTubeApiMethod(SuiteMethod):
             'guid' : 'http://gdata.youtube.com/feeds/api/videos/{0}'.format(
                         video['id']['$t'].split(':')[-1]),
             'license': media_group['media$license']['href'],
-            'flash_enclosure_url': media_group['media$player']['url']
+            'flash_enclosure_url': media_group['media$player']['url'],
+            'view_count': video['yt$statistics']['viewCount'],
+            'duration_seconds': media_group['yt$duration']['seconds']
         }
         return data
 
 
 class YouTubeScrapeMethod(SuiteMethod):
     fields = set(('title', 'thumbnail_url', 'user', 'user_url', 'tags',
-                  'file_url', 'file_url_mimetype', 'file_url_expires'))
+                  'file_url', 'file_url_mimetype', 'file_url_expires',
+                  'view_count', ))
 
     # the ordering of fmt codes we prefer to download
     preferred_fmt_types = [
@@ -145,6 +148,8 @@ class YouTubeScrapeMethod(SuiteMethod):
             'user_url': u'http://www.youtube.com/user/%s' % (
                 params['author'][0].decode('utf8')),
             'thumbnail_url': params['thumbnail_url'][0],
+            'view_count': params['view_count'],
+            'duration_seconds': params['length_seconds']
             }
         if 'keywords' in params:
             data['tags'] = params['keywords'][0].decode('utf8').split(',')

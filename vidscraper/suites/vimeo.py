@@ -52,7 +52,8 @@ LAST_URL_CACHE = "_vidscraper_last_url"
 class VimeoApiMethod(SuiteMethod):
     fields = set(['link', 'title', 'description', 'tags', 'guid',
                   'publish_datetime', 'thumbnail_url', 'user', 'user_url',
-                  'flash_enclosure_url', 'embed_code'])
+                  'flash_enclosure_url', 'embed_code', 'view_count',
+                  'duration_seconds'])
 
     def get_url(self, video):
         video_id = video.suite.video_regex.match(video.url).group('video_id')
@@ -91,7 +92,7 @@ class VimeoScrapeMethod(SuiteMethod):
         for key in ('url', 'caption', 'thumbnail', 'uploader_url',
                     'uploader_display_name', 'isHD', 'embed_code',
                     'request_signature', 'request_signature_expires',
-                    'nodeId'):
+                    'nodeId', 'totalPlays', 'duration'):
             item = doc.getElementsByTagName(key).item(0)
             str_data = item.firstChild.data
             if isinstance(str_data, unicode):
@@ -110,6 +111,8 @@ class VimeoScrapeMethod(SuiteMethod):
                     int(xml_data['request_signature_expires']))) +
                                  datetime.timedelta(hours=6)),
             'file_url_mimetype': u'video/x-flv',
+            'view_count': xml_data['totalPlays'],
+            'duration': int(xml_data['duration'])
             }
         base_file_url = (
             'http://www.vimeo.com/moogaloop/play/clip:%(nodeId)s/'
@@ -178,7 +181,9 @@ allowFullScreen></iframe>""" % video_id
             'flash_enclosure_url': cls.api_video_flash_enclosure(api_video),
             'embed_code': cls.api_video_embed_code(api_video),
             'guid': 'tag:vimeo,%s:clip%i' % (api_video['upload_date'][:10],
-                                             api_video['id'])
+                                             api_video['id']),
+            'view_count': api_video['stats_number_of_plays'],
+            'duration_seconds': int(api_video['duration'])
         }
         return data
 
