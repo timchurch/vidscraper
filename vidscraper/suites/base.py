@@ -250,14 +250,14 @@ class BaseSuite(object):
         """
         Returns ``True`` if this suite can handle the ``url`` as a feed and
         ``False`` otherwise. By default, this method will check whether the url
-        matches :attr:`.feed_regex` or raise a :exc:`NotImplementedError` if
-        that is not possible.
+        matches :attr:`.feed_regex`.  If :attr:`.feed_regex` is not implemented,
+        it will return ``False`` 
 
         """
         try:
             return bool(self.feed_regex.match(url))
         except AttributeError:
-            raise NotImplementedError
+            return False
 
     def get_feed_url(self, url):
         """
