@@ -33,6 +33,7 @@ import urlparse
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
+
 try:
     import oauth2
 except ImportError:
@@ -75,6 +76,10 @@ class VimeoScrapeMethod(SuiteMethod):
         try:
             doc = minidom.parseString(response.text)
         except ExpatError:
+            # TODO: log error
+            return {}
+        except UnicodeEncodeError:
+            # TODO: log error
             return {}
         error_id = doc.getElementsByTagName('error_id').item(0)
         if (error_id is not None and
@@ -99,7 +104,8 @@ class VimeoScrapeMethod(SuiteMethod):
             'user_url': xml_data['uploader_url'],
             'title': xml_data['caption'],
             'thumbnail_url': xml_data['thumbnail'],
-            'embed_code': xml_data['embed_code'],
+            #'embed_code': xml_data['embed_code'],
+            'embed_code': VimeoSuite.video_embed_code(xml_data['nodeId']),
             'file_url_expires': (struct_time_to_datetime(time.gmtime(
                     int(xml_data['request_signature_expires']))) +
                                  datetime.timedelta(hours=6)),
@@ -139,10 +145,14 @@ class VimeoSuite(BaseSuite):
                VimeoApiMethod(), VimeoScrapeMethod())
 
     @classmethod
-    def api_video_embed_code(cls, api_video):
+    def video_embed_code(cls, video_id):
         return u"""<iframe src="http://player.vimeo.com/video/%s" \
 width="640" height="480" frameborder="0" webkitAllowFullScreen \
-allowFullScreen></iframe>""" % api_video['id']
+allowFullScreen></iframe>""" % video_id
+
+    @classmethod
+    def api_video_embed_code(cls, api_video):
+        return cls.video_embed_code(api_video['id'])
 
     @classmethod
     def api_video_flash_enclosure(cls, api_video):
