@@ -148,8 +148,8 @@ class YouTubeScrapeMethod(SuiteMethod):
             'user_url': u'http://www.youtube.com/user/%s' % (
                 params['author'][0].decode('utf8')),
             'thumbnail_url': params['thumbnail_url'][0],
-            'view_count': params['view_count'],
-            'duration_seconds': params['length_seconds']
+            'view_count': params['view_count'][0],
+            'duration_seconds': params['length_seconds'][0]
             }
         if 'keywords' in params:
             data['tags'] = params['keywords'][0].decode('utf8').split(',')
