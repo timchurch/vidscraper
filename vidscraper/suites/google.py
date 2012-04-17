@@ -54,6 +54,7 @@ class GoogleScrapeMethod(SuiteMethod):
 
 class GoogleSuite(BaseSuite):
     """Suite for scraping video pages from videos.google.com"""
+    provider_name = 'Google Video'
     video_regex = r'^https?://video.google.com/videoplay'
     methods = (GoogleScrapeMethod(),)
 

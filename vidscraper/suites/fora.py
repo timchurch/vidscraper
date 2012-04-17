@@ -93,6 +93,7 @@ class ForaSuite(BaseSuite):
     only video pages and rss feeds.
 
     """
+    provider_name = 'FORA.tv'
     video_regex = 'https?://(www\.)?fora\.tv/\d{4}/\d{2}/\d{2}/\w+'
     methods = (ForaScrapeMethod(),)
 

@@ -192,6 +192,7 @@ class YouTubeOEmbedMethod(OEmbedMethod):
 
 
 class YouTubeSuite(BaseSuite):
+    provider_name = 'YouTube'
     video_regex = r'^https?://(' +\
     r'([^/]+\.)?youtube.com/(?:watch)?\?(\w+=[^&]+&)*v=' +\
                   r'|youtu.be/)(?P<video_id>[\w-]+)'

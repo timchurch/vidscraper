@@ -45,7 +45,8 @@ class GoDjangoScrapeMethod(SuiteMethod):
             if tag.name == 'title':
                 end_index = tag.string.find(" - GoDjango.com")
                 if end_index > -1:
-                    data['title'] = unicode(tag.string[:end_index])
+                    data['title'] = unicode(tag.string[:end_index]).strip()
+                    print "TITLE: %s" % data['title']
             elif tag.name == 'div':
                 if tag.has_key('id') and tag['id'] == "description":
                     data['description'] = tag.string.strip()
@@ -84,6 +85,7 @@ class GoDjangoSuite(BaseSuite):
     Suite for GoDjango.com
     
     """
+    provider_name = 'GoDjango'
     video_regex = r'^https?://(www\.)?godjango.com/(?P<slug>[0-9a-z\-]+)/?$'
     # Example URLs:
     #    http://godjango.com/13-django-social-auth-101/

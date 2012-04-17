@@ -51,7 +51,8 @@ class Video(object):
         'file_url_mimetype', 'file_url_length', 'file_url_expires',
         'flash_enclosure_url', 'is_embeddable', 'embed_code',
         'thumbnail_url', 'user', 'user_url', 'tags', 'link', 'guid',
-        'index', 'license', 'view_count', 'duration_seconds'
+        'index', 'license', 'view_count', 'duration_seconds',
+        'provider'
     )
     #: The canonical link to the video. This may not be the same as the url
     #: used to initialize the video.
@@ -97,6 +98,8 @@ class Video(object):
     view_count = None
     #: The duration of the video in seconds.
     duration_seconds = None
+    #: The name of the video hosting provider
+    provider = None
 
     # These were pretty suite-specific and should perhaps be treated as such?
     #: Whether the video is embeddable? (Youtube, Vimeo)
@@ -122,6 +125,7 @@ class Video(object):
         self.url = url
         self._suite = suite
         self.api_keys = api_keys if api_keys is not None else {}
+        self.provider = suite.provider_name if suite else None
 
         # This private attribute is set to ``True`` when data is loaded into
         # the video by a scrape suite. It is *not* set when data is pre-loaded

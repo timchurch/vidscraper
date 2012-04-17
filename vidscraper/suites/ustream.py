@@ -65,6 +65,7 @@ class UstreamApiMethod(SuiteMethod):
 
 class UstreamSuite(BaseSuite):
     """Suite for fetching data on ustream videos."""
+    provider_name = 'Ustream'
     # TODO: Ustream has feeds and search functionality - add support for that!
     video_regex = 'https?://(www\.)?ustream\.tv/recorded/(?P<id>\d+)'
     methods = (OEmbedMethod("http://www.ustream.tv/oembed/"),

@@ -132,6 +132,7 @@ class VimeoSuite(BaseSuite):
     API key is required for this level of access.
 
     """
+    provider_name = 'Vimeo'
     video_regex = r'https?://([^/]+\.)?vimeo.com/(?P<video_id>\d+)'
     feed_regex = (r'http://(?:www\.)?vimeo\.com/'
                   r'(?:(?P<collection>channel|group)s/)?'

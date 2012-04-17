@@ -73,6 +73,7 @@ class BlipApiMethod(SuiteMethod):
 
 
 class BlipSuite(BaseSuite):
+    provider_name = 'Blip.tv'
     video_regex = r'^https?://(?P<subsite>[a-zA-Z]+\.)?blip.tv(?:/.*)?(?<!.mp4)$'
     feed_regex = video_regex
 

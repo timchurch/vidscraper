@@ -153,6 +153,7 @@ class ShowMeDoSuite(BaseSuite):
     Suite for ShowMeDo.com
     
     """
+    provider_name = 'ShowMeDo'
     video_regex = r'^https?://(www\.)?showmedo.com/videotutorials/video\?name=(?P<video_id>[0-9a-zA-Z\-]+)(&fromSeriesID=(?P<series_id>\d+))?$'
     # Example URLs:
     #    http://showmedo.com/videotutorials/video?name=1100000

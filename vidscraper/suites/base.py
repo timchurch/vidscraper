@@ -185,6 +185,9 @@ class BaseSuite(object):
     methods must be defined on a suite-by-suite basis.
 
     """
+    #: An identifier string for the suite
+    provider_name = None
+
     #: A string or precompiled regular expression which will be matched against
     #: video urls to check if they can be handled by this suite.
     video_regex = None

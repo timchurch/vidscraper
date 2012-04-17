@@ -6,7 +6,7 @@ class ParleysApiMethod(SuiteMethod):
     fields = set(['link', 'title', 'description', 'guid',
                   'thumbnail_url', 'tags', 'embed_code',
                   'flash_enclosure_url', 'duration_seconds',
-                  'view_count'])
+                  'view_count', 'speakers'])
     
     def get_url(self, video):
         presentation_id = video.suite.video_regex.match(video.url).group('video_id')
@@ -30,8 +30,8 @@ class ParleysApiMethod(SuiteMethod):
             'embed_code': ParleysSuite.embed_code_from_id(video_id),
             'guid': 'parleys:%i' % (parsed['id']),
             'duration_seconds': int(parsed['duration']),
-            'view_count': parsed['totalViews']
-#            'speakers': [speaker['fullname'] for speaker in parsed['speakers']]
+            'view_count': parsed['totalViews'],
+            'speakers': [speaker['fullname'] for speaker in parsed['speakers']]
         }
         return data
 
@@ -43,6 +43,7 @@ class ParleysSuite(BaseSuite):
     No API key is required.
     
     """
+    provider_name = 'Parleys.com'
     video_regex = r'^https?://(www\.)?parleys.com/#st=5&id=(?P<video_id>\d+)(&sl=[\d]+)?$'
     # Example URLs:
     #    http://www.parleys.com/#id=2229&st=5
