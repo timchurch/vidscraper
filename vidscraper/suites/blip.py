@@ -142,11 +142,12 @@ class BlipSuite(BaseSuite):
             'tags': [tag['term'] for tag in entry['tags']
                      if tag['scheme'] is None][1:],
             'user': entry['blip_safeusername'],
-            'user_url': entry['blip_showpage'],
-            'duration_seconds': int(entry['blip_runtime'])
+            'user_url': entry['blip_showpage']
         }
         if 'license' in entry:
             data['license'] = entry['license']
+        if 'blip_runtime' in entry and entry['blip_runtime']:
+            data['duration_seconds'] = int(entry['blip_runtime'])
         return data
 
 registry.register(BlipSuite)
