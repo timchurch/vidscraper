@@ -35,7 +35,7 @@ class GoDjangoScrapeMethod(SuiteMethod):
         # Find episode # from URL to build thumbnail URL and GUID
         suite = GoDjangoSuite()
         slug = suite.video_regex.match(response.url).group('slug')
-        data['guid'] = "showmedo:%s" % slug
+        data['guid'] = "godjango:%s" % slug
 
         end_episode_index = slug.find('-')
         episode_num = slug[:end_episode_index]
