@@ -181,8 +181,7 @@ allowFullScreen></iframe>""" % video_id
             'tags': [tag for tag in api_video['tags'].split(', ') if tag],
             'flash_enclosure_url': cls.api_video_flash_enclosure(api_video),
             'embed_code': cls.api_video_embed_code(api_video),
-            'guid': 'tag:vimeo,%s:clip%i' % (api_video['upload_date'][:10],
-                                             api_video['id']),
+            'guid': 'vimeo:%i' % api_video['id'],
             'view_count': api_video['stats_number_of_plays'],
             'duration_seconds': int(api_video['duration'])
         }
